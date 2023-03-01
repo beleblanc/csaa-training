@@ -1,23 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
+import Wizard from './Wizard/Wizard';
+
+const Page1 = () => <div>Page1</div>
+const Page2 = () => <div>Page2</div>
+const Page3 = () => <div>Page3</div>
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h3>HI</h3>
+      <Wizard submitHandler={() => console.log('SUBMITTED')}>
+        <Page1 />
+        <Page2 />
+        <Page3 />
+      </Wizard>
     </div>
   );
 }
