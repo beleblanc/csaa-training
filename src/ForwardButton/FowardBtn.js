@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useWizardContext} from '../Wizard/Wizard';
+import { useWizard} from '../Wizard/Wizard';
 
 function FowardBtn() {
 
-    const {isLastPage, submitHandler, goToNextPage  } = useWizardContext();
+    const {isLastPage, submitHandler, goToNextPage  } = useWizard();
 
     return (
       <div className="fowardBtn_div">

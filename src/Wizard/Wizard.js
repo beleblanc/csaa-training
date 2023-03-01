@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useReducer, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useReducer } from 'react'
 import ForwardBtn from '../ForwardButton/FowardBtn';
 import BackButton from '../BackButton/BackButton';
 import Panel from '../Panel/Panel';
@@ -6,55 +6,82 @@ import Panel from '../Panel/Panel';
 
 const WizardContext = React.createContext();
 const {Provider : AppProvider} = React.createContext();
-export const useWizardContext = () => {
+export const useWizard = () => {
     const context = useContext(WizardContext)
     return context;
 
 }
 
-const useWizard = ({children, submitHandler}) => {
-    const [numberOfPages, setNumberOfPages] = useState();
-    const [currentPageNumber, setCurrentPageNumber] = useState(1);
 
-        useEffect(() => {
-            console.log(children.length)
-            setNumberOfPages(children.length);
-            setCurrentPageNumber(1);
-        }, [])
+const wizardReducer = (state , action) => {
+    const {currentPageNumber, totalPages} = state;
 
-    
-    const goToNextPage = useCallback(() => {
-        console.log(currentPageNumber < numberOfPages);
-        if(currentPageNumber < numberOfPages) {console.log(currentPageNumber);setCurrentPageNumber(currentPageNumber + 1)};
-    }, [numberOfPages, currentPageNumber]);
 
-    const goToPreviousPage = useCallback(() => {
-        if(currentPageNumber > 1) setCurrentPageNumber(currentPageNumber -1);
-    }, [numberOfPages, currentPageNumber]);
+    switch(action.type) {
+        case 'NEXT_PAGE' : 
 
-    const goToInitialPage = useCallback(() => {
-        setCurrentPageNumber(1);
-    }, [numberOfPages, currentPageNumber])
-    
-    const context = {
-        currentPageNumber,
-        numberOfPages,
-        isLastPage: currentPageNumber === numberOfPages,
-        goToNextPage, 
-        goToPreviousPage,  
-        submitHandler: () => { submitHandler(); goToInitialPage();}
-    };
+        return {
+            ...state, currentPageNumber: currentPageNumber + 1, 
+            isLastPage: totalPages === currentPageNumber + 1,
+        }
+        case 'PREVIOUS_PAGE' : 
+        return {
+            ...state, currentPageNumber: currentPageNumber - 1,
+            isLastPage: false
+        }
 
-    return context;
+        case 'SET_STEP_COUNT' : 
+        return {...state, totalPages: action.payload}
+        
+        case 'SUBMIT' : 
+        console.log('submit action')
+        return {
+            ...state, currentPageNumber: 1, isLastPage: false
+        }
+
+        default: 
+        return state
+    }
 }
 
-const Wizard = (props) => {
-    const context = useWizard(props);
+const initialState = {
+    currentPageNumber: 1,
+    steps: 0
+}
+
+const Wizard = ({children, submitHandler}) => {
+    console.log('children', children);
+
+    const [state, dispatch] = useReducer(wizardReducer, initialState)
+
+    const goToNextPage = useCallback(() => {
+        dispatch({type: 'NEXT_PAGE'});
+    }, []);
+
+    const goToPreviousPage = useCallback(() => {
+        dispatch({type: 'PREVIOUS_PAGE'});
+    }, []);
+
+    const goToInitialPage = useCallback(() => {
+        dispatch({type: 'SUBMIT'});
+    }, [])
+
+    useEffect(() => {
+        console.log('children in use effect', children.length)
+        dispatch({type: 'SET_STEP_COUNT', payload: children.length})
+    } , [])
+    
+    const context = {
+        ...state,
+        goToNextPage, 
+        goToPreviousPage,  
+        submitHandler: () => {submitHandler() ;goToInitialPage();}
+    };
 
     return <WizardContext.Provider value={context}>
         <div className="wizard">
             <div className="wizard-content-area">
-                {props.children.map((child, index) => <Panel pageNumber={index + 1} key={`child-of-panel-${index}`}>{child}</Panel>)}
+                {children.map((child, index) => <Panel pageNumber={index + 1} key={`child-of-panel-${index}`}>{child}</Panel>)}
             </div>
             <div className="wizard-buttons">
                 <ForwardBtn/> <BackButton/>

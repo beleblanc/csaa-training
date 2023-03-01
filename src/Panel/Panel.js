@@ -1,8 +1,8 @@
 import React from 'react';
-import { useWizardContext } from '../Wizard/Wizard';
+import { useWizard } from '../Wizard/Wizard';
 
 const Panel = ({children, pageNumber}) => {
-    const {currentPageNumber, isLastPage} = useWizardContext();
+    const {currentPageNumber, isLastPage} = useWizard();
 
         return (currentPageNumber === pageNumber) ? (<div className="wizard-panel">
             {children}

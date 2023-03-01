@@ -1,8 +1,8 @@
 import React from 'react';
-import { useWizardContext} from '../Wizard/Wizard';
+import { useWizard} from '../Wizard/Wizard';
 
 const BackButton = () => {
-    const { currentPageNumber, goToPreviousPage } = useWizardContext();
+    const { currentPageNumber, goToPreviousPage } = useWizard();
 
     
     return (currentPageNumber !==1 )? 
