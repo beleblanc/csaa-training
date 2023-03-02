@@ -1,8 +1,1 @@
-const useWizard = () => {
-
-
-
-    return {
-        currentPageNumber, goToNextPage
-    }
-}
+export {default, useWizardContext } from './Wizard';
