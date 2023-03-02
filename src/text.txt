@@ -1,0 +1,40 @@
+# Wizard - UI
+* ForwardButton / SubmitButton
+* BackButton
+* Panel
+
+# Wizard - Functionality
+* Which page we are on
+* How many pages
+* The ability to add custom content
+* managing state (which page, how many pages, which page to show)
+
+
+
+import Wizard from 'somepackage;
+import Panel from 'somepackage;
+import Page1
+
+() => {
+
+    return <Wizard>
+        <Page1/>
+        <DisclaimerPage />
+        <Page3 />
+        <FormComponent/>
+    <Wizard/>
+}
+
+const Wizard = ({children}) => {
+
+
+}
+
+
+    <panel prop= {}>
+    <panel prop= {}>
+() => {
+    return <panel>
+    <buttons >
+     <panel>
+}

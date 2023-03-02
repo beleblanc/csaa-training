@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Panel should render when it has the right page number 1`] = `
+<div>
+  <div
+    class="wizard-panel"
+  >
+    <div>
+      This is some text
+    </div>
+    <div
+      class="notification-center"
+    >
+      You are on page numbers: 
+      4
+    </div>
+  </div>
+</div>
+`;

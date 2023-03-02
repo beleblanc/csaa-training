@@ -8,7 +8,7 @@ const Panel = ({ children, pageNumber }) => {
     <div className="wizard-panel">
       {children}
       <div className="notification-center">
-        You are on page number: {currentPageNumber}
+        You are on page numbers: {currentPageNumber}
       </div>
     </div>
   ) : null;

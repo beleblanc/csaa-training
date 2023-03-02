@@ -17,15 +17,12 @@ export const useWizard = ({ children, submitHandler }) => {
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
 
   useEffect(() => {
-    console.log(children.length);
     setNumberOfPages(children.length);
     setCurrentPageNumber(1);
   }, [children.length]);
 
   const goToNextPage = useCallback(() => {
-    console.log(currentPageNumber < numberOfPages);
     if (currentPageNumber < numberOfPages) {
-      console.log(currentPageNumber);
       setCurrentPageNumber(currentPageNumber + 1);
     }
   }, [numberOfPages, currentPageNumber]);

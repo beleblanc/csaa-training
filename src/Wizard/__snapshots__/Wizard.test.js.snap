@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Wizard should render as expected 1`] = `
+<div>
+  <div
+    class="wizard"
+  >
+    <div
+      class="wizard-content-area"
+    >
+      <div
+        class="wizard-panel"
+      >
+        <div>
+          Page1
+        </div>
+        <div
+          class="notification-center"
+        >
+          You are on page numbers: 
+          1
+        </div>
+      </div>
+    </div>
+    <div
+      class="wizard-buttons"
+    >
+      <div
+        class="fowardBtn_div"
+      >
+        <button
+          type="button"
+        >
+          Next
+        </button>
+      </div>
+       
+    </div>
+  </div>
+</div>
+`;
